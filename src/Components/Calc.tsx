@@ -1,7 +1,52 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, styled } from "@mui/material";
 import { appColorsData } from "../Themes/ColorPallet";
 import BackIcon from "../Assets/BackIcon";
 import { useState } from "react";
+
+const EraseButton = styled(Button)({
+  width: "62px",
+  height: "62px",
+  borderRadius: "16px",
+  color: "#a5a5a5",
+  fontSize: "24px",
+  margin: "0px 20px 0px 0px",
+  backgroundColor: appColorsData.grayButtonColor,
+  textTransform: "none",
+  "&:hover": {
+    backgroundColor: appColorsData.grayButtonColor,
+    color: "#a5a5a5",
+  },
+});
+
+const BlueButton = styled(Button)({
+  width: "62px",
+  height: "62px",
+  borderRadius: "16px",
+  color: "#339dff",
+  fontSize: "24px",
+  margin: "0px 20px 0px 0px",
+  backgroundColor: appColorsData.blueButtonColor,
+  textTransform: "none",
+  "&:hover": {
+    backgroundColor: appColorsData.blueButtonColor,
+    color: "#339dff",
+  },
+});
+
+const GrayButton = styled(Button)({
+  width: "62px",
+  height: "60px",
+  borderRadius: "16px",
+  color: "#29a8ff",
+  fontSize: "32px",
+  margin: "0px 20px 0px 0px",
+  backgroundColor: appColorsData.blackButtonColor,
+  textTransform: "none",
+  "&:hover": {
+    backgroundColor: appColorsData.blackButtonColor,
+    color: "#29a8ff",
+  },
+});
 
 const OPERATORS = ["+", "-", "*", "/"];
 
@@ -160,375 +205,86 @@ export default function Calc() {
             marginTop: "16px",
           }}
         >
-          <Button
-            sx={{
-              width: "62px",
-              height: "62px",
-              borderRadius: "16px",
-              color: "#a5a5a5",
-              fontSize: "24px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.grayButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.grayButtonColor,
-                color: "#a5a5a5",
-              },
-            }}
-            onClick={() => clearAll()}
-          >
+          <EraseButton sx={{}} onClick={() => clearAll()}>
             Ac
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "62px",
-              borderRadius: "16px",
-              color: "#a5a5a5",
-              fontSize: "24px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.grayButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.grayButtonColor,
-                color: "#a5a5a5",
-              },
-            }}
-            onClick={handleDelete}
-          >
+          </EraseButton>
+          <EraseButton onClick={handleDelete}>
             <BackIcon />
-          </Button>
-          <Button
+          </EraseButton>
+          <BlueButton onClick={() => handleOperands("/")}>/</BlueButton>
+          <BlueButton
             sx={{
-              width: "62px",
-              height: "62px",
-              borderRadius: "16px",
-              color: "#339dff",
-              fontSize: "24px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blueButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blueButtonColor,
-                color: "#339dff",
-              },
-            }}
-            onClick={() => handleOperands("/")}
-          >
-            /
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "62px",
-              borderRadius: "16px",
-              color: "#339dff",
               fontSize: "32px",
-              // margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blueButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blueButtonColor,
-                color: "#339dff",
-              },
+              margin: "0px",
             }}
             onClick={() => handleOperands("*")}
           >
             *
-          </Button>
+          </BlueButton>
         </div>
         <div
           style={{
             marginTop: "16px",
           }}
         >
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("7")}
-          >
-            7
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("8")}
-          >
-            8
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("9")}
-          >
-            9
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              // margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blueButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blueButtonColor,
-                color: "#29a8ff",
-              },
-            }}
+          <GrayButton onClick={() => handleOperands("7")}>7</GrayButton>
+          <GrayButton onClick={() => handleOperands("8")}>8</GrayButton>
+          <GrayButton onClick={() => handleOperands("9")}>9</GrayButton>
+          <BlueButton
+            sx={{ margin: "0px" }}
             onClick={() => handleOperands("-")}
           >
             -
-          </Button>
+          </BlueButton>
         </div>
         <div
           style={{
             marginTop: "16px",
           }}
         >
-          <Button
+          <GrayButton onClick={() => handleOperands("4")}>4</GrayButton>
+          <GrayButton onClick={() => handleOperands("5")}>5</GrayButton>
+          <GrayButton onClick={() => handleOperands("6")}>6</GrayButton>
+          <BlueButton
             sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("4")}
-          >
-            4
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("5")}
-          >
-            5
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("6")}
-          >
-            6
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              flexGrow: "4",
-              color: "#29a8ff",
-              fontSize: "32px",
-              // margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blueButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blueButtonColor,
-                color: "#29a8ff",
-              },
+              margin: "0px",
             }}
             onClick={() => handleOperands("+")}
           >
             +
-          </Button>
+          </BlueButton>
         </div>
         <div
           style={{
             marginTop: "16px",
           }}
         >
-          <Button
+          <GrayButton onClick={() => handleOperands("1")}>1</GrayButton>
+          <GrayButton onClick={() => handleOperands("2")}>2</GrayButton>
+          <GrayButton onClick={() => handleOperands("3")}>3</GrayButton>
+          <BlueButton
             sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("1")}
-          >
-            1
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("2")}
-          >
-            2
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("3")}
-          >
-            3
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              flexGrow: "4",
-              color: "#29a8ff",
-              fontSize: "32px",
-              // margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blueButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blueButtonColor,
-                color: "#29a8ff",
-              },
+              margin: "0px",
             }}
             onClick={() => handleCalculateValue()}
           >
             =
-          </Button>
+          </BlueButton>
         </div>
         <div
           style={{
             marginTop: "16px",
           }}
         >
-          <Button
+          <GrayButton onClick={() => handleOperands("0")}>0</GrayButton>
+          <BlueButton
             sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              color: "#29a8ff",
-              fontSize: "32px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-                color: "#29a8ff",
-              },
-            }}
-            onClick={() => handleOperands("0")}
-          >
-            0
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "60px",
-              borderRadius: "16px",
-              flexGrow: "4",
-              color: "#29a8ff",
-              fontSize: "32px",
-              // margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blueButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blueButtonColor,
-                color: "#29a8ff",
-              },
+              margin: "0px",
             }}
             onClick={() => handleOperands(".")}
           >
             .
-          </Button>
+          </BlueButton>
         </div>
       </Box>
     </Box>
