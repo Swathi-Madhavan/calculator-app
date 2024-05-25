@@ -1,83 +1,55 @@
 import { Box, Button, Typography } from "@mui/material";
 import { appColorsData } from "../Themes/ColorPallet";
 import BackIcon from "../Assets/BackIcon";
-import React, { useState } from "react";
+import { useState } from "react";
 
-function convertToString(num: number): string {
-  return num.toString();
-}
+const OPERATORS = ["+", "-", "*", "/"];
 
 export default function Calc() {
-  const [operandOne, setOperandOne] = React.useState<string | undefined>("");
-  const [operandTwo, setOperandTwo] = React.useState<string | undefined>("");
-  const [operator, setOperator] = React.useState("");
-  const [result, setResult] = React.useState<string | undefined>("");
+  const [result, setResult] = useState<string>("");
+  const [userInput, setUserInput] = useState("");
 
   function handleOperands(value: string) {
-    if (operator === "") {
-      setOperandOne((prevVal) => prevVal + value);
-    } else {
-      setOperandTwo((prevVal) => prevVal + value);
-    }
-  }
-
-  function handleOperator(operatorValue: string) {
-    setOperator(operatorValue);
-  }
-
-  function calculateValue(
-    operator: string,
-    operandOne?: string,
-    operandTwo?: string
-  ) {
-    if (operandOne && operandTwo) {
-      const numoperandOne = +operandOne;
-      const numoperandTwo = +operandTwo;
-
-      switch (operator) {
-        case "+":
-          return convertToString(numoperandOne + numoperandTwo);
-        case "-":
-          return convertToString(numoperandOne - numoperandTwo);
-        case "*":
-          return convertToString(numoperandOne * numoperandTwo);
-        case "/":
-          return convertToString(numoperandOne / numoperandTwo);
+    setUserInput((prevVal) => {
+      if (result !== "") {
+        setResult("");
+        if (prevVal === "" && OPERATORS.includes(value)) {
+          return "0" + value;
+        } else {
+          return value;
+        }
       }
-    }
+
+      if (prevVal === "" && OPERATORS.includes(value)) {
+        return "0" + value;
+      } else {
+        return prevVal + value;
+      }
+    });
   }
 
   function handleCalculateValue() {
-    setResult(calculateValue(operator, operandOne, operandTwo));
+    if (userInput) {
+      setResult(eval(userInput));
+    }
   }
 
-  function calcDisplay(
-    operandOne?: string,
-    operandTwo?: string,
-    operator?: string,
-    result?: string
-  ) {
+  function calcDisplay() {
     if (result === "") {
-      return `${operandOne} ${operator} ${operandTwo}`;
+      return userInput;
     } else {
-      return result;
+      return `${userInput} = ${result}`;
     }
   }
 
   function clearAll() {
-    setOperandOne("");
-    setOperandTwo("");
-    setOperator("");
+    setUserInput("");
     setResult("");
   }
 
   function handleDelete() {
-    if (operandTwo) {
-      setOperandTwo((prev) => prev?.slice(0, -1));
-    } else if (operator) {
-      setOperator((prev) => prev?.slice(0, -1));
-    } else if (operandOne) {
-      setOperandOne((prev) => prev?.slice(0, -1));
+    if (userInput) {
+      setUserInput((prev) => prev?.slice(0, -1));
     }
   }
 
@@ -118,7 +90,7 @@ export default function Calc() {
               height: "28px",
             }}
           >
-            {calcDisplay(operandOne, operandTwo, operator, result)}
+            {calcDisplay()}
           </Typography>
         </div>
         {/* <div>
@@ -241,7 +213,7 @@ export default function Calc() {
                 color: "#339dff",
               },
             }}
-            onClick={() => handleOperator("/")}
+            onClick={() => handleOperands("/")}
           >
             /
           </Button>
@@ -260,7 +232,7 @@ export default function Calc() {
                 color: "#339dff",
               },
             }}
-            onClick={() => handleOperator("*")}
+            onClick={() => handleOperands("*")}
           >
             *
           </Button>
@@ -342,7 +314,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperator("-")}
+            onClick={() => handleOperands("-")}
           >
             -
           </Button>
@@ -425,7 +397,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperator("+")}
+            onClick={() => handleOperands("+")}
           >
             +
           </Button>
