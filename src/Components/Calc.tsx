@@ -1,4 +1,4 @@
-import { Box, Button, Typography, styled } from "@mui/material";
+import { Box, Button, Stack, Typography, styled } from "@mui/material";
 import { appColorsData } from "../Themes/ColorPallet";
 import BackIcon from "../Assets/BackIcon";
 import { useState } from "react";
@@ -9,7 +9,6 @@ const EraseButton = styled(Button)({
   borderRadius: "16px",
   color: "#a5a5a5",
   fontSize: "24px",
-  margin: "0px 20px 0px 0px",
   backgroundColor: appColorsData.grayButtonColor,
   textTransform: "none",
   "&:hover": {
@@ -24,7 +23,6 @@ const BlueButton = styled(Button)({
   borderRadius: "16px",
   color: "#339dff",
   fontSize: "24px",
-  margin: "0px 20px 0px 0px",
   backgroundColor: appColorsData.blueButtonColor,
   textTransform: "none",
   "&:hover": {
@@ -39,7 +37,6 @@ const GrayButton = styled(Button)({
   borderRadius: "16px",
   color: "#29a8ff",
   fontSize: "32px",
-  margin: "0px 20px 0px 0px",
   backgroundColor: appColorsData.blackButtonColor,
   textTransform: "none",
   "&:hover": {
@@ -114,11 +111,18 @@ export default function Calc() {
           backgroundImage: "linear-gradient(203deg, #17181a 105%, #17181a -4%)",
           padding: "40px 33px 40px 34px",
           borderRadius: "39px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
         }}
       >
-        <div
+        <Stack
           style={{
             justifyContent: "flex-start",
+            height: "50px",
+            backgroundColor: "#FFF",
+            width: "100%",
           }}
         >
           <Typography
@@ -137,72 +141,12 @@ export default function Calc() {
           >
             {calcDisplay()}
           </Typography>
-        </div>
-        {/* <div>
-                <Button
-                  sx={{
-                    width: "62px",
-                    height: "40px",
-                    borderRadius: "24px",
-                    margin: "0px 20px 0px 0px",
-                    backgroundColor: appColorsData.blackButtonColor,
-                    textTransform: "none",
-                    "&:hover": {
-                      backgroundColor: appColorsData.blackButtonColor,
-                    },
-                  }}
-                >
-                  e
-                </Button>
-                <Button
-                  sx={{
-                    width: "62px",
-                    height: "40px",
-                    borderRadius: "24px",
-                    margin: "0px 20px 0px 0px",
-                    backgroundColor: appColorsData.blackButtonColor,
-                    textTransform: "none",
-                    "&:hover": {
-                      backgroundColor: appColorsData.blackButtonColor,
-                    },
-                  }}
-                >
-                  &#181;
-                </Button>
-                <Button
-                  sx={{
-                    width: "62px",
-                    height: "40px",
-                    borderRadius: "24px",
-                    margin: "0px 20px 0px 0px",
-                    backgroundColor: appColorsData.blackButtonColor,
-                    textTransform: "none",
-                    "&:hover": {
-                      backgroundColor: appColorsData.blackButtonColor,
-                    },
-                  }}
-                >
-                  sin
-                </Button>
-                <Button
-                  sx={{
-                    width: "62px",
-                    height: "40px",
-                    borderRadius: "24px",
-                    // margin: "0px 20px 0px 0px",
-                    backgroundColor: appColorsData.blackButtonColor,
-                    textTransform: "none",
-                    "&:hover": {
-                      backgroundColor: appColorsData.blackButtonColor,
-                    },
-                  }}
-                >
-                  deg
-                </Button>
-              </div> */}
-        <div
+        </Stack>
+        <Stack
+          flexDirection="row"
           style={{
             marginTop: "16px",
+            gap: "20px",
           }}
         >
           <EraseButton sx={{}} onClick={() => clearAll()}>
@@ -221,10 +165,12 @@ export default function Calc() {
           >
             *
           </BlueButton>
-        </div>
-        <div
+        </Stack>
+        <Stack
+          flexDirection="row"
           style={{
             marginTop: "16px",
+            gap: "20px",
           }}
         >
           <GrayButton onClick={() => handleOperands("7")}>7</GrayButton>
@@ -236,10 +182,12 @@ export default function Calc() {
           >
             -
           </BlueButton>
-        </div>
-        <div
+        </Stack>
+        <Stack
+          flexDirection="row"
           style={{
             marginTop: "16px",
+            gap: "20px",
           }}
         >
           <GrayButton onClick={() => handleOperands("4")}>4</GrayButton>
@@ -253,10 +201,12 @@ export default function Calc() {
           >
             +
           </BlueButton>
-        </div>
-        <div
+        </Stack>
+        <Stack
+          flexDirection="row"
           style={{
             marginTop: "16px",
+            gap: "20px",
           }}
         >
           <GrayButton onClick={() => handleOperands("1")}>1</GrayButton>
@@ -270,10 +220,12 @@ export default function Calc() {
           >
             =
           </BlueButton>
-        </div>
-        <div
+        </Stack>
+        <Stack
+          flexDirection="row"
           style={{
             marginTop: "16px",
+            gap: "20px",
           }}
         >
           <GrayButton onClick={() => handleOperands("0")}>0</GrayButton>
@@ -285,7 +237,7 @@ export default function Calc() {
           >
             .
           </BlueButton>
-        </div>
+        </Stack>
       </Box>
     </Box>
   );
