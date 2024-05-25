@@ -55,15 +55,17 @@ export default function Calc() {
     setUserInput((prevVal) => {
       if (result !== "") {
         setResult("");
-        if (prevVal === "" && OPERATORS.includes(value)) {
+        if (OPERATORS.includes(value)) {
           return "0" + value;
         } else {
           return value;
         }
       }
-
+      const lastChar = prevVal.slice(-1);
       if (prevVal === "" && OPERATORS.includes(value)) {
         return "0" + value;
+      } else if (OPERATORS.includes(lastChar) && OPERATORS.includes(value)) {
+        return prevVal.slice(0, -1) + value;
       } else {
         return prevVal + value;
       }
@@ -92,6 +94,9 @@ export default function Calc() {
   function handleDelete() {
     if (userInput) {
       setUserInput((prev) => prev?.slice(0, -1));
+      if (result) {
+        setResult("");
+      }
     }
   }
 
@@ -183,60 +188,115 @@ export default function Calc() {
             -
           </BlueButton>
         </Stack>
+
         <Stack
           flexDirection="row"
-          style={{
-            marginTop: "16px",
+          justifyContent="start"
+          alignItems="stretch"
+          sx={{
             gap: "20px",
           }}
         >
-          <GrayButton onClick={() => handleOperands("4")}>4</GrayButton>
-          <GrayButton onClick={() => handleOperands("5")}>5</GrayButton>
-          <GrayButton onClick={() => handleOperands("6")}>6</GrayButton>
-          <BlueButton
-            sx={{
-              margin: "0px",
-            }}
-            onClick={() => handleOperands("+")}
+          <Stack
+            flexDirection="column"
+            justifyContent="start"
+            alignItems="start"
           >
-            +
-          </BlueButton>
-        </Stack>
-        <Stack
-          flexDirection="row"
-          style={{
-            marginTop: "16px",
-            gap: "20px",
-          }}
-        >
-          <GrayButton onClick={() => handleOperands("1")}>1</GrayButton>
-          <GrayButton onClick={() => handleOperands("2")}>2</GrayButton>
-          <GrayButton onClick={() => handleOperands("3")}>3</GrayButton>
-          <BlueButton
+            <Stack
+              flexDirection="row"
+              style={{
+                marginTop: "16px",
+                gap: "20px",
+              }}
+            >
+              <GrayButton onClick={() => handleOperands("4")}>4</GrayButton>
+              <GrayButton onClick={() => handleOperands("5")}>5</GrayButton>
+              <GrayButton onClick={() => handleOperands("6")}>6</GrayButton>
+            </Stack>
+
+            <Stack
+              flexDirection="row"
+              style={{
+                marginTop: "16px",
+                gap: "20px",
+              }}
+            >
+              <GrayButton onClick={() => handleOperands("1")}>1</GrayButton>
+              <GrayButton onClick={() => handleOperands("2")}>2</GrayButton>
+              <GrayButton onClick={() => handleOperands("3")}>3</GrayButton>
+            </Stack>
+            <Stack
+              flexDirection="row"
+              style={{
+                marginTop: "16px",
+                gap: "20px",
+                width: "100%",
+              }}
+            >
+              <GrayButton
+                sx={{
+                  width: "100%",
+                }}
+                onClick={() => handleOperands("0")}
+              >
+                0
+              </GrayButton>
+              <BlueButton
+                sx={{
+                  margin: "0px",
+                }}
+                onClick={() => handleOperands(".")}
+              >
+                .
+              </BlueButton>
+            </Stack>
+          </Stack>
+
+          <Stack
+            flexDirection="column"
+            justifyContent="start"
+            alignItems="stretch"
             sx={{
-              margin: "0px",
+              gap: "20px",
+              marginTop: "16px",
+              flex: 1,
             }}
-            onClick={() => handleCalculateValue()}
           >
-            =
-          </BlueButton>
-        </Stack>
-        <Stack
-          flexDirection="row"
-          style={{
-            marginTop: "16px",
-            gap: "20px",
-          }}
-        >
-          <GrayButton onClick={() => handleOperands("0")}>0</GrayButton>
-          <BlueButton
-            sx={{
-              margin: "0px",
-            }}
-            onClick={() => handleOperands(".")}
-          >
-            .
-          </BlueButton>
+            <Stack
+              display="flex"
+              flexDirection="column"
+              sx={{
+                flex: 1,
+              }}
+            >
+              <BlueButton
+                sx={{
+                  margin: "0px",
+                  height: "100%",
+                }}
+                onClick={() => handleOperands("+")}
+              >
+                +
+              </BlueButton>
+            </Stack>
+            <Stack
+              display="flex"
+              flexDirection="column"
+              sx={{
+                flex: 1,
+              }}
+            >
+              <BlueButton
+                sx={{
+                  margin: "0px",
+                  height: "100%",
+                }}
+                onClick={() => handleCalculateValue()}
+              >
+                =
+              </BlueButton>
+            </Stack>
+          </Stack>
         </Stack>
       </Box>
     </Box>
