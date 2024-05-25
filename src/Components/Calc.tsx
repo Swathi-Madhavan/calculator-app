@@ -1,23 +1,23 @@
 import { Box, Button, Typography } from "@mui/material";
 import { appColorsData } from "../Themes/ColorPallet";
 import BackIcon from "../Assets/BackIcon";
-import React from "react";
+import React, { useState } from "react";
+
+function convertToString(num: number): string {
+  return num.toString();
+}
 
 export default function Calc() {
-  const [operandOne, setOperandOne] = React.useState<number | undefined>(
-    undefined
-  );
-  const [operandTwo, setOperandTwo] = React.useState<number | undefined>(
-    undefined
-  );
-  const [operator, setOperator] = React.useState(" ");
-  const [result, setResult] = React.useState<number | undefined>(undefined);
+  const [operandOne, setOperandOne] = React.useState<string | undefined>("");
+  const [operandTwo, setOperandTwo] = React.useState<string | undefined>("");
+  const [operator, setOperator] = React.useState("");
+  const [result, setResult] = React.useState<string | undefined>("");
 
-  function handleOperands(value: number) {
-    if (operandOne === undefined) {
-      setOperandOne(value);
+  function handleOperands(value: string) {
+    if (operator === "") {
+      setOperandOne((prevVal) => prevVal + value);
     } else {
-      setOperandTwo(value);
+      setOperandTwo((prevVal) => prevVal + value);
     }
   }
 
@@ -26,63 +26,60 @@ export default function Calc() {
   }
 
   function calculateValue(
-    operandOne: number,
-    operandTwo: number,
-    operator: string
+    operator: string,
+    operandOne?: string,
+    operandTwo?: string
   ) {
     if (operandOne && operandTwo) {
+      const numoperandOne = +operandOne;
+      const numoperandTwo = +operandTwo;
+
       switch (operator) {
         case "+":
-          setResult(operandOne + operandTwo);
-          return result;
+          return convertToString(numoperandOne + numoperandTwo);
         case "-":
-          setResult(operandOne - operandTwo);
-          return result;
+          return convertToString(numoperandOne - numoperandTwo);
         case "*":
-          setResult(operandOne * operandTwo);
-          return result;
+          return convertToString(numoperandOne * numoperandTwo);
         case "/":
-          setResult(operandOne / operandTwo);
-
-          return result;
+          return convertToString(numoperandOne / numoperandTwo);
       }
     }
   }
 
   function handleCalculateValue() {
-    console.log(
-      calculateValue(operandOne as number, operandTwo as number, operator)
-    );
+    setResult(calculateValue(operator, operandOne, operandTwo));
   }
 
   function calcDisplay(
-    operandOne?: number,
-    operandTwo?: number,
+    operandOne?: string,
+    operandTwo?: string,
     operator?: string,
-    result?: number
+    result?: string
   ) {
-    if (result == undefined) {
+    if (result === "") {
       return `${operandOne} ${operator} ${operandTwo}`;
     } else {
       return result;
     }
   }
-  function clearAll(
-    operandOne?: number,
-    operandTwo?: number,
-    operator?: string,
-    result?: number
-  ) {
-    setOperandOne(undefined);
-    setOperandTwo(undefined);
+
+  function clearAll() {
+    setOperandOne("");
+    setOperandTwo("");
     setOperator("");
-    setResult(undefined);
+    setResult("");
   }
 
-  console.log(operandOne);
-  console.log(operator);
-  console.log(operandTwo);
-  console.log(result);
+  function handleDelete() {
+    if (operandTwo) {
+      setOperandTwo((prev) => prev?.slice(0, -1));
+    } else if (operator) {
+      setOperator((prev) => prev?.slice(0, -1));
+    } else if (operandOne) {
+      setOperandOne((prev) => prev?.slice(0, -1));
+    }
+  }
 
   return (
     <Box
@@ -118,73 +115,74 @@ export default function Calc() {
               fontStyle: "normal",
               marginBottom: "20px",
               backgroundColor: appColorsData.whiteColor,
+              height: "28px",
             }}
           >
             {calcDisplay(operandOne, operandTwo, operator, result)}
           </Typography>
         </div>
-        <div>
-          <Button
-            sx={{
-              width: "62px",
-              height: "40px",
-              borderRadius: "24px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-              },
-            }}
-          >
-            e
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "40px",
-              borderRadius: "24px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-              },
-            }}
-          >
-            &#181;
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "40px",
-              borderRadius: "24px",
-              margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-              },
-            }}
-          >
-            sin
-          </Button>
-          <Button
-            sx={{
-              width: "62px",
-              height: "40px",
-              borderRadius: "24px",
-              // margin: "0px 20px 0px 0px",
-              backgroundColor: appColorsData.blackButtonColor,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: appColorsData.blackButtonColor,
-              },
-            }}
-          >
-            deg
-          </Button>
-        </div>
+        {/* <div>
+                <Button
+                  sx={{
+                    width: "62px",
+                    height: "40px",
+                    borderRadius: "24px",
+                    margin: "0px 20px 0px 0px",
+                    backgroundColor: appColorsData.blackButtonColor,
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: appColorsData.blackButtonColor,
+                    },
+                  }}
+                >
+                  e
+                </Button>
+                <Button
+                  sx={{
+                    width: "62px",
+                    height: "40px",
+                    borderRadius: "24px",
+                    margin: "0px 20px 0px 0px",
+                    backgroundColor: appColorsData.blackButtonColor,
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: appColorsData.blackButtonColor,
+                    },
+                  }}
+                >
+                  &#181;
+                </Button>
+                <Button
+                  sx={{
+                    width: "62px",
+                    height: "40px",
+                    borderRadius: "24px",
+                    margin: "0px 20px 0px 0px",
+                    backgroundColor: appColorsData.blackButtonColor,
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: appColorsData.blackButtonColor,
+                    },
+                  }}
+                >
+                  sin
+                </Button>
+                <Button
+                  sx={{
+                    width: "62px",
+                    height: "40px",
+                    borderRadius: "24px",
+                    // margin: "0px 20px 0px 0px",
+                    backgroundColor: appColorsData.blackButtonColor,
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: appColorsData.blackButtonColor,
+                    },
+                  }}
+                >
+                  deg
+                </Button>
+              </div> */}
         <div
           style={{
             marginTop: "16px",
@@ -205,7 +203,7 @@ export default function Calc() {
                 color: "#a5a5a5",
               },
             }}
-            onClick={() => clearAll(operandOne, operandTwo, operator, result)}
+            onClick={() => clearAll()}
           >
             Ac
           </Button>
@@ -224,6 +222,7 @@ export default function Calc() {
                 color: "#a5a5a5",
               },
             }}
+            onClick={handleDelete}
           >
             <BackIcon />
           </Button>
@@ -286,7 +285,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(7)}
+            onClick={() => handleOperands("7")}
           >
             7
           </Button>
@@ -305,7 +304,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(8)}
+            onClick={() => handleOperands("8")}
           >
             8
           </Button>
@@ -324,7 +323,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(9)}
+            onClick={() => handleOperands("9")}
           >
             9
           </Button>
@@ -368,7 +367,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(4)}
+            onClick={() => handleOperands("4")}
           >
             4
           </Button>
@@ -387,7 +386,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(5)}
+            onClick={() => handleOperands("5")}
           >
             5
           </Button>
@@ -406,7 +405,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(6)}
+            onClick={() => handleOperands("6")}
           >
             6
           </Button>
@@ -451,7 +450,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(1)}
+            onClick={() => handleOperands("1")}
           >
             1
           </Button>
@@ -470,7 +469,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(2)}
+            onClick={() => handleOperands("2")}
           >
             2
           </Button>
@@ -489,7 +488,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(3)}
+            onClick={() => handleOperands("3")}
           >
             3
           </Button>
@@ -534,7 +533,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
-            onClick={() => handleOperands(0)}
+            onClick={() => handleOperands("0")}
           >
             0
           </Button>
@@ -554,6 +553,7 @@ export default function Calc() {
                 color: "#29a8ff",
               },
             }}
+            onClick={() => handleOperands(".")}
           >
             .
           </Button>
