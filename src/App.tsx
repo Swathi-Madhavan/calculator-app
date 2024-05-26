@@ -1,12 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Calc from './Components/Calc';
+import React from "react";
+import Calc from "./Components/Calc";
 
 function App() {
-  return (
-    <Calc />
-  );
+  return <Calc />;
 }
 
 export default App;

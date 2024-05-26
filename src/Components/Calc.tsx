@@ -1,3 +1,5 @@
+/* eslint-disable no-eval */
+import React from "react";
 import { Box, Button, Stack, Typography, styled } from "@mui/material";
 import { appColorsData } from "../Themes/ColorPallet";
 import BackIcon from "../Assets/BackIcon";
